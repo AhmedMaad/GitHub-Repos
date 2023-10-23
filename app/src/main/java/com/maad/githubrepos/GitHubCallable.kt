@@ -10,7 +10,10 @@ interface GitHubCallable {
     @GET(REPOSITORIES_ENDPOINT)
     fun getPublicRepositories(): Call<ArrayList<GitHubModel>>
 
-    @GET("/users/{user}/repos")
-    fun getUserRepositories(@Path("user") owner: String): Call<List<RepositoryModel>>
+    @GET("/repos/{user}/{repoName}")
+    fun getUserRepositories(
+        @Path("user") owner: String,
+        @Path("repoName") repoName: String
+    ): Call<RepositoryModel>
 
 }

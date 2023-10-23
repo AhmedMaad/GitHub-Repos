@@ -2,24 +2,24 @@ package com.maad.githubrepos
 
 import com.google.gson.annotations.SerializedName
 
-class GitHubModel {
+data class GitHubModel(
 
     @SerializedName("name")
-    val repoName = ""
+    val repoName: String = "",
 
-}
+    val owner: Owner = Owner()
 
-class Owner {
+    //Used to get the creation date for a repository
+    //@SerializedName("url")
+    //val repoUrl: String = ""
 
+)
+
+data class Owner(
     @SerializedName("login")
-    val ownerName = ""
+    val ownerName: String = "",
 
     @SerializedName("avatar_url")
-    val avatarUrl = ""
+    val avatarUrl: String = ""
 
-    //https://api.github.com/users/{ownerName}/repos
-    //Used to get the creation date for a repository
-    //@SerializedName("repos_url")
-    //val reposUrl = ""
-
-}
+)

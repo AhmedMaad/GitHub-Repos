@@ -1,10 +1,10 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.data
 
 import android.content.Context
-import android.content.res.Resources
 import android.icu.util.Calendar
 import android.util.Log
 import com.google.gson.annotations.SerializedName
+import com.maad.githubrepos.R
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

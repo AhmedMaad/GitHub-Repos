@@ -1,10 +1,10 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.api
 
 import com.maad.githubrepos.Constants.REPOSITORIES_ENDPOINT
+import com.maad.githubrepos.data.GitHubModel
+import com.maad.githubrepos.data.RepositoryModel
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.Path
 
 interface GitHubCallable {

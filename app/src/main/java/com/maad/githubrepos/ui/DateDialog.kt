@@ -1,10 +1,10 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.ui
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.maad.githubrepos.R
 
 class DateDialog(private val message: String) : DialogFragment() {
 

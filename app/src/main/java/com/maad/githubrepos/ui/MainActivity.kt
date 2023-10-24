@@ -1,4 +1,4 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,17 +7,17 @@ import androidx.core.view.isVisible
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.maad.githubrepos.Constants.BASE_URL
+import com.maad.githubrepos.api.GitHubCallable
+import com.maad.githubrepos.data.GitHubModel
+import com.maad.githubrepos.R
+import com.maad.githubrepos.data.RepositoryModel
 import com.maad.githubrepos.databinding.ActivityMainBinding
+import com.maad.githubrepos.data.formatDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 

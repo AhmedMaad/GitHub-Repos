@@ -1,4 +1,4 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.data
 
 import com.google.gson.annotations.SerializedName
 

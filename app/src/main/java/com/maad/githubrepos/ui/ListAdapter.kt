@@ -1,9 +1,11 @@
-package com.maad.githubrepos
+package com.maad.githubrepos.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.*
 import com.bumptech.glide.Glide
+import com.maad.githubrepos.data.GitHubModel
+import com.maad.githubrepos.R
 import com.maad.githubrepos.databinding.ReposListItemBinding
 
 class ListAdapter(

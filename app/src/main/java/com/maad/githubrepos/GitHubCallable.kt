@@ -9,7 +9,6 @@ import retrofit2.http.Path
 
 interface GitHubCallable {
 
-    @Headers("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")
     @GET(REPOSITORIES_ENDPOINT)
     fun getPublicRepositories(): Call<ArrayList<GitHubModel>>
 

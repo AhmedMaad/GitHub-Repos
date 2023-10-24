@@ -8,10 +8,10 @@ import com.maad.githubrepos.databinding.ReposListItemBinding
 
 class ListAdapter(
     private val repos: ArrayList<GitHubModel>,
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: OnDateClickListener
 ) : Adapter<ListAdapter.NoteViewHolder>() {
 
-    fun interface OnItemClickListener {
+    fun interface OnDateClickListener {
         fun onShowDateClick(position: Int)
     }
 

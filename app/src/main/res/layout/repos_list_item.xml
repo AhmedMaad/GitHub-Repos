@@ -69,7 +69,7 @@
             app:layout_constraintEnd_toEndOf="@id/owner_name_tv"
             app:layout_constraintStart_toStartOf="@id/owner_name_tv"
             app:layout_constraintTop_toBottomOf="@id/repo_name_tv"
-            tools:text="@tools:sample/date/ddmmyy" />
+            android:text="@string/click_for_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

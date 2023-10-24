@@ -11,7 +11,7 @@ import java.util.Calendar
 
 data class RepositoryModel(
     @SerializedName("created_at")
-    val creationDate: String = ""
+    val creationDate: String? = ""
 )
 
 fun formatDate(context: Context, date: String): String {

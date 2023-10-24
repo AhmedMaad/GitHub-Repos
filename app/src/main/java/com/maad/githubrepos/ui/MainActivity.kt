@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.maad.githubrepos.api.GitHubCallable
 import com.maad.githubrepos.data.GitHubModel
 import com.maad.githubrepos.R
 import com.maad.githubrepos.data.formatDate
@@ -15,20 +14,20 @@ import com.maad.githubrepos.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.gitRepositories.observe(this) {
             showList(it)
         }
 
         viewModel.date.observe(this) {
-            if (it.isNotEmpty()) {
+            if (it != null) {
                 val dialog = DateDialog(formatDate(this, it))
                 dialog.show(supportFragmentManager, null)
             } else {

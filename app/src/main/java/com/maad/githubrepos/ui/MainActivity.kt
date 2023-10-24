@@ -2,6 +2,8 @@ package com.maad.githubrepos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -23,28 +25,25 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.gitRepositories.observe(this) {
-            showList(it)
+            Log.d("trace", "getting list")
+            if (it.isEmpty())
+                showSnackBar(R.string.check_connection, R.string.ok)
+            else
+                showList(it)
+            binding.progress.isVisible = false
         }
 
         viewModel.date.observe(this) {
             if (it != null) {
                 val dialog = DateDialog(formatDate(this, it))
                 dialog.show(supportFragmentManager, null)
-            } else {
-                Snackbar
-                    .make(
-                        binding.root, getString(R.string.no_date_found),
-                        BaseTransientBottomBar.LENGTH_INDEFINITE
-                    )
-                    .setAction(getString(R.string.ok)) {}
-                    .show()
-            }
+            } else
+                showSnackBar(R.string.no_date_found, R.string.ok)
         }
 
     }
 
-    private fun showList(responseBody: ArrayList<GitHubModel>?) {
-        binding.progress.isVisible = false
+    private fun showList(responseBody: List<GitHubModel>?) {
         val adapter = ListAdapter(responseBody!!) { position ->
             viewModel.getCreationDate(
                 responseBody[position].owner.ownerName,
@@ -53,6 +52,16 @@ class MainActivity : AppCompatActivity() {
         }
         binding.reposRv.setHasFixedSize(true)
         binding.reposRv.adapter = adapter
+    }
+
+    private fun showSnackBar(@StringRes message: Int, @StringRes action: Int) {
+        Snackbar
+            .make(
+                binding.root, message,
+                BaseTransientBottomBar.LENGTH_INDEFINITE
+            )
+            .setAction(action) {}
+            .show()
     }
 
 }

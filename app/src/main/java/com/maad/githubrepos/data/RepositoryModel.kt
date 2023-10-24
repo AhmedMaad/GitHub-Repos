@@ -2,15 +2,28 @@ package com.maad.githubrepos.data
 
 import android.content.Context
 import android.util.Log
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.maad.githubrepos.Constants.CREATED_AT
+import com.maad.githubrepos.Constants.REPOSITORY
+import com.maad.githubrepos.Constants.REPO_ID
 import com.maad.githubrepos.R
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
+@Entity(REPOSITORY)
 data class RepositoryModel(
-    @SerializedName("created_at")
+
+    @PrimaryKey
+    @ColumnInfo(REPO_ID)
+    val id: Int = 0,
+
+    @ColumnInfo(CREATED_AT)
+    @SerializedName(CREATED_AT)
     val creationDate: String? = ""
 )
 

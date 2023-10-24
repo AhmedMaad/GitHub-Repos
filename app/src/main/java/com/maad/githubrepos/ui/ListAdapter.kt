@@ -9,7 +9,7 @@ import com.maad.githubrepos.R
 import com.maad.githubrepos.databinding.ReposListItemBinding
 
 class ListAdapter(
-    private val repos: ArrayList<GitHubModel>,
+    private val repos: List<GitHubModel>,
     private val onItemClickListener: OnDateClickListener
 ) : Adapter<ListAdapter.NoteViewHolder>() {
 

@@ -15,13 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    //https://api.github.com/repositories
-
-    //https://api.github.com/users/mojombo/repos
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var retrofit: Retrofit
     private lateinit var callable: GitHubCallable
+    private val dates = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +45,22 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ArrayList<GitHubModel>>
             ) {
                 binding.progress.isVisible = false
-                val allRepos = response.body()
-                Log.d("trace", "Data: ${allRepos?.get(0)}")
-                getCreationDate(allRepos?.get(0)?.owner?.ownerName, allRepos?.get(0)?.repoName)
+                val allRepos: ArrayList<GitHubModel>? = response.body()
+                val adapter = ListAdapter(allRepos!!){
+                    Log.d("trace", "Date should appear now")
+                }
+                binding.reposRv.setHasFixedSize(true)
+                binding.reposRv.adapter = adapter
+
+                //Giving API request limit, so will be replaced with getting a date ""
+               /* if (allRepos != null)
+                    for (element in allRepos) {
+                        Log.d("trace", "Data: $element")
+                        getCreationDate(element.owner.ownerName, element.repoName)
+                    }
+                else
+                    Log.d("trace", "Null repos")*/
+
             }
 
             override fun onFailure(call: Call<ArrayList<GitHubModel>>, t: Throwable) {
@@ -61,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun getCreationDate(ownerName: String?, repoName: String?) {
+    /*private fun getCreationDate(ownerName: String?, repoName: String?) {
         callable.getUserRepositories(ownerName!!, repoName!!)
             .enqueue(object : Callback<RepositoryModel> {
                 override fun onResponse(
@@ -70,13 +80,15 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     val date = response.body()?.creationDate
                     Log.d("trace", "Date: $date")
+                    dates.add(date ?: "No date")
+                    Log.d("trace", "array list value: ${dates[dates.size - 1]}")
                 }
 
                 override fun onFailure(call: Call<RepositoryModel>, t: Throwable) {
                     Log.d("trace", "Error: ${t.message}")
                 }
             })
-    }
+    }*/
 
 
 }

@@ -3,11 +3,8 @@ package com.maad.githubrepos.data
 import android.content.Context
 import android.util.Log
 import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.maad.githubrepos.Constants.CREATED_AT
-import com.maad.githubrepos.Constants.REPOSITORY
 import com.maad.githubrepos.Constants.REPO_ID
 import com.maad.githubrepos.R
 import java.time.LocalDateTime
@@ -15,14 +12,11 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
-@Entity(REPOSITORY)
 data class RepositoryModel(
 
-    @PrimaryKey
     @ColumnInfo(REPO_ID)
     val id: Int = 0,
 
-    @ColumnInfo(CREATED_AT)
     @SerializedName(CREATED_AT)
     val creationDate: String? = ""
 )
@@ -31,7 +25,7 @@ fun formatDate(context: Context, date: String): String {
 
     val datetime = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME)
     val zone = ZoneId.of("UTC")
-    Log.d("trace", "Formatted Date: $datetime")
+    //Log.d("trace", "Formatted Date: $datetime")
     val year = datetime.year
     val month = datetime.monthValue
     val day = datetime.dayOfMonth
@@ -40,9 +34,9 @@ fun formatDate(context: Context, date: String): String {
     val yearsDiff = calendar.get(Calendar.YEAR) - year
     val monthsDiff = calendar.get(Calendar.MONTH) - month + 1 //Months are Zero based
     val daysDiff = calendar.get(Calendar.DAY_OF_MONTH) - day
-    Log.d("trace", "yearsDiff: $yearsDiff")
-    Log.d("trace", "monthsDiff: $monthsDiff")
-    Log.d("trace", "daysDiff: $daysDiff")
+    //Log.d("trace", "yearsDiff: $yearsDiff")
+    //Log.d("trace", "monthsDiff: $monthsDiff")
+    //Log.d("trace", "daysDiff: $daysDiff")
     return if (yearsDiff == 0 && monthsDiff == 0 && daysDiff == 0)
         context.getString(R.string.created_today)
     else if (yearsDiff == 0 && monthsDiff == 0)

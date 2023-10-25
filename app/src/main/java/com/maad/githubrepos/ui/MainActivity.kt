@@ -1,9 +1,9 @@
 package com.maad.githubrepos.ui
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -24,23 +24,55 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         viewModel.gitRepositories.observe(this) {
             Log.d("trace", "getting list")
-            if (it.isEmpty())
-                showSnackBar(R.string.check_connection, R.string.ok)
-            else
-                showList(it)
+            showList(it)
             binding.progress.isVisible = false
         }
 
-        viewModel.date.observe(this) {
+        /*viewModel.date.observe(this) {
+            Log.d("trace", "Observing date: $it")
             if (it != null) {
-                val dialog = DateDialog(formatDate(this, it))
+                val dialog = DateDialog(formatDate(this, it), viewModel)
                 dialog.show(supportFragmentManager, null)
-            } else
-                showSnackBar(R.string.no_date_found, R.string.ok)
+            }
+        }*/
+
+        viewModel.date.observe(this) {
+            Log.d("trace", "Observing date: $it")
+            if (it != null) {
+                showDialog(formatDate(this, it))
+            }
         }
 
+        viewModel.hasError.observe(this) { hasError ->
+            if (hasError)
+                Snackbar
+                    .make(
+                        binding.root,
+                        R.string.check_connection,
+                        BaseTransientBottomBar.LENGTH_INDEFINITE
+                    )
+                    .setAction(R.string.ok) {
+                        viewModel.showedSnackBar()
+                    }
+                    .show()
+        }
+
+    }
+
+    private fun showDialog(message: String) {
+        AlertDialog
+            .Builder(this)
+            .setTitle(getString(R.string.date))
+            .setIcon(R.drawable.date)
+            .setMessage(message)
+            .setNegativeButton(getString(R.string.dismiss)) { dialog, _ ->
+                dialog.dismiss()
+                viewModel.showedDateDialog()
+            }
+            .show()
     }
 
     private fun showList(responseBody: List<GitHubModel>?) {
@@ -52,16 +84,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.reposRv.setHasFixedSize(true)
         binding.reposRv.adapter = adapter
-    }
-
-    private fun showSnackBar(@StringRes message: Int, @StringRes action: Int) {
-        Snackbar
-            .make(
-                binding.root, message,
-                BaseTransientBottomBar.LENGTH_INDEFINITE
-            )
-            .setAction(action) {}
-            .show()
     }
 
 }

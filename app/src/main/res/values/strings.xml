@@ -3,7 +3,6 @@
     <string name="click_for_date"><u>Click for date</u></string>
     <string name="date">Creation Date</string>
     <string name="dismiss">dismiss</string>
-    <string name="no_date_found">No Date found</string>
     <string name="ok">OK</string>
     <string name="created_today">Created today.</string>
     <string name="day_s_ago">%1$s day/s ago</string>

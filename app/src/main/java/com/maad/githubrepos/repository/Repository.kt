@@ -12,27 +12,23 @@ class Repository(private val db: DBHelper) {
 
     var cachedRepos = db.ownerDao().getAll()
 
-    private var allRepos = arrayListOf<GitHubModel>()
-    private var repoModel = RepositoryModel()
-
     suspend fun refreshRepositories() {
         //The I/O dispatcher designed to offload blocking I/O tasks to a shared pool of threads
         //The IO dispatcher is optimized for IO work like reading from the network or disk,
         //while the Default dispatcher is optimized for CPU intensive tasks.
         withContext(Dispatchers.IO) {
-            allRepos = GitHubAPI.callable.getPublicRepositories()
+            val allRepos = GitHubAPI.callable.getPublicRepositories()
             db.ownerDao().insertAll(allRepos)
             Log.d("trace", "repos saved successfully")
         }
     }
 
-    suspend fun getCreationDate(ownerName: String?, repoName: String?): String? {
-        withContext(Dispatchers.IO){
+    suspend fun refreshCreationDate(ownerName: String?, repoName: String?): String? {
+        var repoModel: RepositoryModel
+        withContext(Dispatchers.IO) {
             repoModel = GitHubAPI.callable.getRepositoryData(ownerName!!, repoName!!)
         }
-        val date = repoModel.creationDate
-        Log.d("trace", "Date value: $date")
-       return date
+        return repoModel.creationDate
     }
 
 }

@@ -6,12 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.maad.githubrepos.data.GitHubModel
 import com.maad.githubrepos.database.DBHelper
 import com.maad.githubrepos.repository.Repository
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val app: Application) : AndroidViewModel(app) {
+class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val _date = MutableLiveData<String?>()
     val date: LiveData<String?>
@@ -21,13 +20,9 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val gitRepositories = repository.cachedRepos
 
-    /*private val _hasRepoError = MutableLiveData<Boolean>()
-    val hasRepoError: LiveData<Boolean>
-        get() = _hasRepoError*/
-
-    /*private val _hasDateError = MutableLiveData<Boolean>()
-    val hasDateError: LiveData<Boolean>
-        get() = _hasDateError*/
+    private val _hasError = MutableLiveData<Boolean>()
+    val hasError: LiveData<Boolean>
+        get() = _hasError
 
     init {
         getRepositories()
@@ -38,7 +33,7 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
             try {
                 repository.refreshRepositories()
             } catch (e: Exception) {
-                //_hasRepoError.value = true
+                _hasError.value = true
                 Log.d("trace", "Fetching Repository Error: $e")
             }
         }
@@ -47,13 +42,20 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
     fun getCreationDate(ownerName: String?, repoName: String?) {
         viewModelScope.launch {
             try {
-                val date: String? = repository.getCreationDate(ownerName, repoName)
-                _date.value = date
+                _date.value = repository.refreshCreationDate(ownerName, repoName)
             } catch (e: Exception) {
-                //_hasDateError.value = true
-                Log.d("trace", "Fetching Date Error: $e")
+                _hasError.value = true
+                Log.d("trace", "Fetching Repository Error: $e")
             }
         }
+    }
+
+    fun showedSnackBar() {
+        _hasError.value = false
+    }
+
+    fun showedDateDialog() {
+        _date.value = null
     }
 
 }

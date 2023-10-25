@@ -8,12 +8,10 @@ import com.maad.githubrepos.data.GitHubModel
 import com.maad.githubrepos.data.Owner
 import com.maad.githubrepos.data.RepositoryModel
 
-@Database(entities = [GitHubModel::class, RepositoryModel::class], version = 1)
+@Database(entities = [GitHubModel::class], version = 1)
 abstract class DBHelper: RoomDatabase() {
 
     abstract fun ownerDao(): OwnerDao
-    abstract fun repoDao(): RepositoryDao
-
     companion object {
         //Ensures that the value of the variable is always up-to-date,
         //and any changes to the variable should be immediately visible to all threads.

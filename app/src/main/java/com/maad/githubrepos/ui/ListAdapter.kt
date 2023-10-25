@@ -24,16 +24,20 @@ class ListAdapter(
             ReposListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         val holder = ItemViewHolder(binding)
-        holder.binding.creationDateTv.setOnClickListener {
+        holder.binding.creationDateCv.setOnClickListener {
             onItemClickListener.onShowDateClick(holder.adapterPosition)
         }
 
         return holder
     }
+
     override fun getItemCount() = repos.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.binding.ownerNameTv.text = repos[position].owner.ownerName
+        holder.binding.ownerNameTv.text = holder.binding.repoNameTv.context.getString(
+            R.string.by,
+            repos[position].owner.ownerName
+        )
         holder.binding.repoNameTv.text = repos[position].repoName
 
         Glide

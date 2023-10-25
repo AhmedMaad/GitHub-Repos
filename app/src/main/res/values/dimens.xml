@@ -4,5 +4,8 @@
     <dimen name="default_corner">24dp</dimen>
     <dimen name="card_height">320dp</dimen>
     <dimen name="title_tv">24sp</dimen>
-    <dimen name="details_tv">18sp</dimen>
+    <dimen name="details_tv">16sp</dimen>
+    <dimen name="thumbnail_card">48dp</dimen>
+    <dimen name="thumbnail_card_corner">24dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
 </resources>

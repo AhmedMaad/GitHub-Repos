@@ -31,44 +31,52 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:id="@+id/owner_name_tv"
+            android:id="@+id/repo_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/amita_bold"
+            android:fontFamily="@font/merriweather_bold"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/title_tv"
+            app:layout_constraintBottom_toTopOf="@id/owner_name_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view"
             tools:text="@tools:sample/full_names" />
 
         <TextView
-            android:id="@+id/repo_name_tv"
+            android:id="@+id/owner_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/details_tv"
-            app:layout_constraintEnd_toEndOf="@id/owner_name_tv"
-            app:layout_constraintStart_toStartOf="@id/owner_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/owner_name_tv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/repo_name_tv"
+            app:layout_constraintStart_toStartOf="@id/repo_name_tv"
+            app:layout_constraintTop_toBottomOf="@id/repo_name_tv"
             tools:text="@tools:sample/last_names" />
 
-        <TextView
-            android:id="@+id/creation_date_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/creation_date_cv"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
-            android:gravity="end"
-            android:text="@string/click_for_date"
-            android:textColor="@color/white_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/owner_name_tv"
-            app:layout_constraintStart_toStartOf="@id/owner_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/repo_name_tv" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="@dimen/thumbnail_card_corner"
+            android:layout_width="@dimen/thumbnail_card"
+            android:layout_height="@dimen/thumbnail_card">
+
+            <ImageView
+                android:padding="@dimen/default_padding"
+                android:src="@drawable/date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

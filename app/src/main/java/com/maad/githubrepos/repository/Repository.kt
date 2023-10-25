@@ -18,7 +18,7 @@ class Repository(private val db: DBHelper) {
         withContext(Dispatchers.IO) {
             val allRepos = GitHubAPI.callable.getPublicRepositories()
             db.ownerDao().insertAll(allRepos)
-            Log.d("trace", "repos saved successfully")
+            //Log.d("trace", "repos saved successfully")
         }
     }
 

@@ -8,7 +8,6 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.maad.githubrepos.data.GitHubModel
@@ -30,8 +29,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.gitRepositories.observe(this) {
             //Log.d("trace", "getting list")
-            showList(it, savedInstanceState)
-            binding.progress.isVisible = false
+            if (it.isNotEmpty()){
+                showList(it, savedInstanceState)
+                binding.shimmerViewContainer.stopShimmerAnimation()
+                binding.shimmerViewContainer.isVisible = false
+            }
         }
 
         viewModel.date.observe(this) {
@@ -41,17 +43,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.hasError.observe(this) { hasError ->
-            if (hasError)
+            if (hasError){
                 Snackbar
                     .make(
                         binding.root,
-                        R.string.check_connection,
+                        R.string.cached_data,
                         BaseTransientBottomBar.LENGTH_INDEFINITE
                     )
-                    .setAction(R.string.ok) {
-                        viewModel.showedSnackBar()
-                    }
+                    .setAction(R.string.ok) {}
                     .show()
+                viewModel.showedSnackBar()
+            }
+            else{
+                binding.shimmerViewContainer.stopShimmerAnimation()
+                binding.shimmerViewContainer.isVisible = false
+            }
+
         }
 
     }
@@ -79,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding.reposRv.setHasFixedSize(true)
         binding.reposRv.adapter = adapter
 
-        if (activityState != null){
+        if (activityState != null) {
             val managerState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
                 activityState.getParcelable("recyclerViewState", Parcelable::class.java)
             else
@@ -95,6 +102,16 @@ class MainActivity : AppCompatActivity() {
             "recyclerViewState",
             binding.reposRv.layoutManager?.onSaveInstanceState()
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.shimmerViewContainer.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.shimmerViewContainer.stopShimmerAnimation()
     }
 
 }

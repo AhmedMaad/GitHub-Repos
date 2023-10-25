@@ -7,5 +7,5 @@
     <string name="created_today">Created today.</string>
     <string name="day_s_ago">%1$s day/s ago</string>
     <string name="month_s_ago">%1$s month/s ago.</string>
-    <string name="check_connection">Check your connection</string>
+    <string name="cached_data">Showing cached data if any</string>
 </resources>

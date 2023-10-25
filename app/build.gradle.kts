@@ -64,4 +64,6 @@ dependencies {
     //Note: KSP is faster but, it is giving an error when adding it
     kapt("androidx.room:room-compiler:2.5.2")
 
+    implementation ("com.facebook.shimmer:shimmer:0.1.0@aar")
+
 }

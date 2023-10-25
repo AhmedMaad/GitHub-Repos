@@ -11,29 +11,28 @@ import com.maad.githubrepos.databinding.ReposListItemBinding
 class ListAdapter(
     private val repos: List<GitHubModel>,
     private val onItemClickListener: OnDateClickListener
-) : Adapter<ListAdapter.NoteViewHolder>() {
+) : Adapter<ListAdapter.ItemViewHolder>() {
 
     fun interface OnDateClickListener {
         fun onShowDateClick(position: Int)
     }
 
-    class NoteViewHolder(val binding: ReposListItemBinding) : ViewHolder(binding.root)
+    class ItemViewHolder(val binding: ReposListItemBinding) : ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
             ReposListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        val holder = NoteViewHolder(binding)
+        val holder = ItemViewHolder(binding)
         holder.binding.creationDateTv.setOnClickListener {
             onItemClickListener.onShowDateClick(holder.adapterPosition)
         }
 
         return holder
     }
-
     override fun getItemCount() = repos.size
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.ownerNameTv.text = repos[position].owner.ownerName
         holder.binding.repoNameTv.text = repos[position].repoName
 

@@ -1,11 +1,14 @@
 package com.maad.githubrepos.ui
 
 import android.app.AlertDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.maad.githubrepos.data.GitHubModel
@@ -27,12 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.gitRepositories.observe(this) {
             //Log.d("trace", "getting list")
-            showList(it)
+            showList(it, savedInstanceState)
             binding.progress.isVisible = false
         }
 
         viewModel.date.observe(this) {
-           // Log.d("trace", "Observing date: $it")
+            // Log.d("trace", "Observing date: $it")
             if (it != null)
                 showDialog(formatDate(this, it))
         }
@@ -66,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showList(responseBody: List<GitHubModel>?) {
+    private fun showList(responseBody: List<GitHubModel>?, activityState: Bundle?) {
         val adapter = ListAdapter(responseBody!!) { position ->
             viewModel.getCreationDate(
                 responseBody[position].owner.ownerName,
@@ -75,6 +78,23 @@ class MainActivity : AppCompatActivity() {
         }
         binding.reposRv.setHasFixedSize(true)
         binding.reposRv.adapter = adapter
+
+        if (activityState != null){
+            val managerState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                activityState.getParcelable("recyclerViewState", Parcelable::class.java)
+            else
+                activityState.getParcelable("recyclerViewState")
+            binding.reposRv.layoutManager?.onRestoreInstanceState(managerState)
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(
+            "recyclerViewState",
+            binding.reposRv.layoutManager?.onSaveInstanceState()
+        )
     }
 
 }

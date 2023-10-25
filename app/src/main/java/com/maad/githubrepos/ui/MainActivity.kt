@@ -61,6 +61,20 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        viewModel.hasDateError.observe(this) { hasError ->
+            if (hasError){
+                Snackbar
+                    .make(
+                        binding.root,
+                        R.string.check_connection,
+                        BaseTransientBottomBar.LENGTH_INDEFINITE
+                    )
+                    .setAction(R.string.ok) {}
+                    .show()
+                viewModel.showedDateSnackBar()
+            }
+        }
+
     }
 
     private fun showDialog(message: String) {

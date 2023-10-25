@@ -23,6 +23,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val hasError: LiveData<Boolean>
         get() = _hasError
 
+    val _hasDateError = MutableLiveData<Boolean>()
+    val hasDateError: LiveData<Boolean>
+        get() = _hasDateError
+
     init {
         getRepositories()
     }
@@ -43,7 +47,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             try {
                 _date.value = repository.refreshCreationDate(ownerName, repoName)
             } catch (e: Exception) {
-                _hasError.value = true
+                _hasDateError.value = true
                 //Log.d("trace", "Fetching Repository Error: $e")
             }
         }
@@ -51,6 +55,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun showedSnackBar() {
         _hasError.value = false
+    }
+
+    fun showedDateSnackBar(){
+        _hasDateError.value = false
     }
 
     fun showedDateDialog() {

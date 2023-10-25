@@ -2,7 +2,6 @@ package com.maad.githubrepos.repository
 
 import android.util.Log
 import com.maad.githubrepos.api.GitHubAPI
-import com.maad.githubrepos.data.GitHubModel
 import com.maad.githubrepos.data.RepositoryModel
 import com.maad.githubrepos.database.DBHelper
 import kotlinx.coroutines.Dispatchers

@@ -43,7 +43,6 @@ class ListAdapter(
             .error(R.drawable.person_off)
             .into(holder.binding.ownerIv)
 
-
     }
 
 }

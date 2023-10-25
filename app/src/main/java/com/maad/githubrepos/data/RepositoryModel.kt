@@ -1,7 +1,6 @@
 package com.maad.githubrepos.data
 
 import android.content.Context
-import android.util.Log
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 import com.maad.githubrepos.Constants.CREATED_AT

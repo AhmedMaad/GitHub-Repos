@@ -5,8 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.maad.githubrepos.data.GitHubModel
-import com.maad.githubrepos.data.Owner
-import com.maad.githubrepos.data.RepositoryModel
 
 @Database(entities = [GitHubModel::class], version = 1)
 abstract class DBHelper: RoomDatabase() {

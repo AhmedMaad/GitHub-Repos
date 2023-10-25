@@ -26,24 +26,15 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         viewModel.gitRepositories.observe(this) {
-            Log.d("trace", "getting list")
+            //Log.d("trace", "getting list")
             showList(it)
             binding.progress.isVisible = false
         }
 
-        /*viewModel.date.observe(this) {
-            Log.d("trace", "Observing date: $it")
-            if (it != null) {
-                val dialog = DateDialog(formatDate(this, it), viewModel)
-                dialog.show(supportFragmentManager, null)
-            }
-        }*/
-
         viewModel.date.observe(this) {
-            Log.d("trace", "Observing date: $it")
-            if (it != null) {
+           // Log.d("trace", "Observing date: $it")
+            if (it != null)
                 showDialog(formatDate(this, it))
-            }
         }
 
         viewModel.hasError.observe(this) { hasError ->

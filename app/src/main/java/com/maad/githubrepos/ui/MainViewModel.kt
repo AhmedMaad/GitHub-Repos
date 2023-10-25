@@ -34,7 +34,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 repository.refreshRepositories()
             } catch (e: Exception) {
                 _hasError.value = true
-                Log.d("trace", "Fetching Repository Error: $e")
+                //Log.d("trace", "Fetching Repository Error: $e")
             }
         }
     }
@@ -45,7 +45,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 _date.value = repository.refreshCreationDate(ownerName, repoName)
             } catch (e: Exception) {
                 _hasError.value = true
-                Log.d("trace", "Fetching Repository Error: $e")
+                //Log.d("trace", "Fetching Repository Error: $e")
             }
         }
     }
